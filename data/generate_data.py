@@ -5,6 +5,8 @@ import psycopg2
 from faker import Faker
 
 fake = Faker()
+Faker.seed(42)
+random.seed(42)
 
 # DATABASE CONFIGURATION
 
