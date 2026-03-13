@@ -31,7 +31,6 @@ CREATE TABLE observations (
     id SERIAL PRIMARY KEY,
     encounter_id INT REFERENCES encounters(id),
     observation_name VARCHAR(100) NOT NULL,
-    observation_type VARCHAR(100) NOT NULL,
     value NUMERIC,
     unit VARCHAR(50),
     observation_date DATE NOT NULL
@@ -40,8 +39,6 @@ CREATE TABLE observations (
 -- Table: medication_requests
 CREATE TABLE medication_requests (
     id SERIAL PRIMARY KEY,
-    patient_id INT NOT NULL REFERENCES patients(id),
-    practitioner_id INT NOT NULL REFERENCES practitioners(id),
     encounter_id INT REFERENCES encounters(id),
     medication_code VARCHAR(100) NOT NULL,
     dosage TEXT,
