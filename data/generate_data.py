@@ -61,7 +61,8 @@ def get_db_connection():
     conn = psycopg2.connect(**DB_CONFIG)
     return conn
 
-cursor = get_db_connection().cursor()
+conn = get_db_connection()
+cursor = conn.cursor()
 
 # PREPARE PATIENT DATA
 
@@ -154,8 +155,9 @@ for _ in range(NUM_MEDICATION_REQUESTS):
 
     encounter_id = random.choice(encounter_ids)
 
-    cursor.execute("SELECT encounter_date FROM encounters WHERE id = %s", (encounter_id,))
-    encounter_date_real = cursor.fetchone()[0]
+    cursor.execute("SELECT encounter_date, patient_id, practitioner_id FROM encounters WHERE id = %s", (encounter_id,))
+    encounter_data = cursor.fetchone()
+    encounter_date_real, patient_id, practitioner_id = encounter_data
 
     med_name, med_label, med_route, med_dose = random.choice(MEDICATION_CODES)
 
